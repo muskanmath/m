@@ -9,8 +9,10 @@ BRANCH_CITY varchar(20),
 INSERT INTO BRANCH( BRANCH_NAME ,BRANCH_CITY,  ASSEST ) 
 VALUES('RLY_STN', 'JODHPUR', 3200000)
 
+select * from BRANCH  -->
+
 BRANCH_NAME	BRANCH_CITY	ASSEST
-RLY_STN	                     JODHPUR	                     3200000
+RLY_STN	                   JODHPUR	 3200000
 BGKT		JODHPUR   	4000000
 GANDHI_NAGAR	JAIPUR		4350000
 PAOTA		AJMER		4356000
@@ -29,12 +31,15 @@ FOREIGN KEY (BRANCH_NAME) REFERENCES BRANCH(BRANCH_NAME)
 INSERT INTO ACCOUNT(ACCOUNT_NO, BALANCE, BRANCH_NAME)
 VALUES('xxxxxx9865', 53540000,'PAL ROAD')
 
+
+select * from ACCOUNT 
+
 ACCOUNT_NO	BALANCE 	BRANCH_NAME
 xxxxxx9875	320000	 	RLY_STN
 xxxxxx4352	3120000		BGKT
 xxxxxx7756	3529000		GANDHI_NAGAR
 xxxxxx6534	5520000		PAOTA
-xxxxxx9865	53540000	PAL ROAD
+xxxxxx9865	53540000		PAL ROAD
 
 
 .................................DEPOSITION TABLE ........................
@@ -48,6 +53,9 @@ FOREIGN KEY (ACCOUNT_NO) REFERENCES ACCOUNT(ACCOUNT_NO)
 
 INSERT INTO DEPOSITION(CUST_NAME, ACCOUNT_NO)
 VALUES('NITESH KUMAR','xxxxxx9865')
+
+
+select * from DEPOSITION 
 
 CUST_NAME	ACCOUNT_NO
 
@@ -66,11 +74,13 @@ CUST_CITY varchar(50) not null,
 CUST_STREET varchar(50) not null,
 foreign key (CUST_NAME ) references DEPOSITION(CUST_NAME) 
 )
-..........................INSEERT CUSTOMERS...............................
+..........................INSERT CUSTOMERS...............................
 
 INSERT INTO CUSTOMERS(CUST_NAME,CUST_CITY,CUST_STREET)
-VALUSE('NITESH KUMAR', 'MUMBAI', 'PARK STREET')
+VALUES ('NITESH KUMAR', 'MUMBAI', 'PARK STREET')
 
+
+select * from CUSTOMERS 
 
 CUST_NAME	CUST_CITY	CUST_STREET
 NITESH KUMAR	MUMBAI		PARK STREET
@@ -79,31 +89,47 @@ DILIP		JODHPUR	PAL ROAD
 MUSKAN		JAIPUR		SASTRI NAGAR
 HIMANSHU	JODHPUR	BGKT
 
+..................CREATE TABLE LAON........................
 
--------------create loan table---------
 CREATE TABLE LOAN(
 LOAN_NO int not null primary key,
-branch_name varchar(50) not null,
-amount int ,
-foreign key (branch_name) references branch(branch_name)
+BRANCH_NAMEvarchar(50) not null,
+AMOUNT int ,
+foreign key (BRANCH_NAME) references branch(BRANCH_NAME)
 )
-insert into loan values (2001, 'Mumbai Central', 50000);
-insert into loan values (2002, 'Delhi Heights', 75000);
-insert into loan values (2003, 'Chennai Harbor', 60000);
-insert into loan values (2004, 'Kolkata Junction', 55000);
-insert into loan values (2005, 'Bangalore Paradise', 70000);
-select * from loan ;
 
--------------create borrower table---------
-create table borrower(
-cust_name varchar(50) not null primary key,
-loan_no int not null, 
-foreign key (cust_name) references customers(cust_name),
-foreign key (loan_no) references loan(loan_no)
+INSERT INTO LOAN VALUES (2001, 'RLY_STN', 50000)
+
+
+select * from LOAN
+
+LOAN_NO	BRANCH_NAME	AMOUNT
+2001		RLY_STN		50000
+2002		BGKT		75000
+2003		GANDHI_NAGAR	60000
+2004		PAOTA		55000
+2005		PAL ROAD	70000
+
+
+..................CREATE TABLE BORROW...................
+
+CREATE TABLE BORROWER(
+CUST_NAME varchar(50) not null primary key,
+LOAN_NO int not null, 
+foreign key (CUST_NAME) references CUSTOMERS (CUST_NAME),
+foreign key (LOAN_NO) references LOAN (LOAN_NO)
 )
+ ..................INSERT BORROWER....................
+
+
 insert into borrower values ('Rahul Sharma', 2001);
-insert into borrower values ('Neha Gupta', 2002);
-insert into borrower values ('Amit Patel', 2003);
-insert into borrower values ('Priya Singh', 2004);
-insert into borrower values ('Rajiv Kumar', 2005);
-select * from borrower
+
+select * from BORROWER
+
+CUST_NAME	LOAN_NO
+NITESH KUMAR	2001
+ASHU KUMAR	2002
+DILIP		2003
+MUSKAN		2004
+HIMANSHU	2005
+
